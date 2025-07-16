@@ -24,7 +24,7 @@ public class CronService {
     @Value("${usuario.email}")
     private String email;
 
-    @Value("{usuario.senha}")
+    @Value("${usuario.senha}")
     private String senha;
 
     @Scheduled(cron = "0 0/5 * * * ?")
