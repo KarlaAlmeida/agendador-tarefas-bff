@@ -7,20 +7,40 @@ import com.javanauta.bffagendadortarefas.infraestructure.exceptions.Unauthorazed
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+
 public class FeignError implements ErrorDecoder {
 
     @Override
     public Exception decode(String s, Response response) {
 
+        String mensagem = mensagemErro(response);
+
         switch (response.status()){
             case 409:
-                return new ConflictExceptions("Erro atributo já existente.");
+                return new ConflictExceptions("Erro: " + mensagem);
             case 403:
-                return new ResourceNotFoundException("Erro atributo não encontrado.");
+                return new ResourceNotFoundException("Erro: " + mensagem);
             case 401:
-                return new UnauthorazedException("Erro usuário não autorizado.");
+                return new UnauthorazedException("Erro: " + mensagem);
+            case 400:
+                return new UnauthorazedException("Erro: " + mensagem);
             default:
-                return new BusinessException("Erro de servidor.");
+                return new BusinessException("Erro: " + mensagem);
+        }
+    }
+
+    public String mensagemErro(Response response){
+
+        if(Objects.isNull(response.body())){
+            return "";
+        }
+        try {
+            return new String(response.body().asInputStream().readAllBytes(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
