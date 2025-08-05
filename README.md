@@ -36,7 +36,9 @@ Orquestra as chamadas entre o frontend e os microsserviços do sistema, centrali
 ## 🧱 Arquitetura
 
 - Padrão BFF (Backend for Frontend)
-- Comunicação síncrona com fallback e retry
+
+ <img width="1553" height="859" alt="image" src="https://github.com/user-attachments/assets/556c9d25-7f70-4dfc-9701-15ceeb28227f" />
+
 
 ## ✅ Boas Práticas
 
@@ -44,6 +46,7 @@ Orquestra as chamadas entre o frontend e os microsserviços do sistema, centrali
 - Centralização da autenticação e autorização
 - Propagação segura e transparente de tokens JWT
 - Swagger para documentação da API exposta ao frontend
+
 
 ## 📦 Como Rodar
 
